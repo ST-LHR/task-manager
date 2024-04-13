@@ -1,5 +1,5 @@
 Todo App
-This is a simple Todo List application built using React.js and Material-UI for styling.
+This is a simple Todo List application built using React.js and Material-UI and tailwindsCss for styling and responsive.
 
 core Features are :
 
@@ -10,7 +10,8 @@ core Features are :
 Technologies Used :
 1 React.js
 2 Material-UI
-3 Firebase (Firestore)
+3 tailwindCss
+4 Firebase (Firestore)
 
 Installation
 Clone the repository: https://github.com/ST-LHR/task-manager.git

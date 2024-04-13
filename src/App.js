@@ -60,7 +60,7 @@ function App() {
       <div className="w-full sm:w-1/2 mx-auto rounded-md bg-slate-600">
         <div className="w-full flex justify-center items-center text-center">
           <h1 className="font-bold pt-7 text-2xl md:text-4xl text-white ">
-            Task Manager
+            Todo App
           </h1>
         </div>
         <form
@@ -76,7 +76,7 @@ function App() {
 
           <TextField
             id="outlined-basic"
-            label="Enter Task"
+            label="Add Todo"
             variant="outlined"
             className=" w-full bg-slate-300"
             type="text"
@@ -106,7 +106,7 @@ function App() {
         </ul>
       </div>
       <div className=" mt-5 w-full sm:w-1/2 mx-auto rounded-md bg-slate-600 ">
-        <p className="text-white text-center flex justify-center items-center p-3 text-md sm:text-xl font-bold">{`You have ${newtask.length} tasks in total`}</p>
+        <p className="text-white text-center flex justify-center items-center p-3 text-md sm:text-xl font-bold">{`You have ${newtask.length} todo in total`}</p>
       </div>
     </div>
   );
