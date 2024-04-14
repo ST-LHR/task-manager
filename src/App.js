@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import List from "./components/List";
 import { db } from "./utils/firebase";
 
@@ -18,10 +19,12 @@ import TextField from "@mui/material/TextField";
 function App() {
   const [task, setTask] = useState("");
   const [newtask, setNewtask] = useState([]);
+  const dispatch = useDispatch();
 
-  // this function will add tasks to configured firebase database
+  // this function will add tasks to configured firebase database and also update in redux store
 
   const createTaskHandler = async (e) => {
+    dispatch({ type: "todo/createTodoList", payload: task });
     e.preventDefault();
     if (task === "") {
       alert("Please enter a valid task");
@@ -35,7 +38,7 @@ function App() {
     alert("Task added successfully");
   };
 
-  // this function will fetch tasks from firebase
+  // this function will fetch tasks from firebase and update the redux store
 
   useEffect(() => {
     const q = query(collection(db, "todos"));
@@ -45,28 +48,31 @@ function App() {
         todosArr.push({ ...doc.data(), id: doc.id });
       });
       setNewtask(todosArr);
+      dispatch({ type: "todo/fetchTodoListStart", payload: todosArr });
     });
     return () => unsubscribe();
   }, []);
 
-  // this function will update tasks in firebase
+  // this function will update tasks in firebase and also update the redux store
 
   const updateTaskHandler = async (task) => {
+    dispatch({ type: "todo/updateTodoList", payload: task.id });
     // console.log("task is",task.id);
     await updateDoc(doc(db, "todos", task.id), {
       completed: !task.completed,
     });
   };
 
-  // this function will delete tasks from firebase
+  // this function will delete tasks from firebase and also update the redux store after deletion
 
   const deleteTaskHandler = async (task) => {
+    dispatch({ type: "todo/removeTodoList", payload: task.id });
     await deleteDoc(doc(db, "todos", task.id));
   };
 
   return (
     <div className="bg-slate-800 w-full h-screen mx-auto fixed">
-      <div className="w-full sm:w-1/2 mx-auto rounded-md bg-slate-600 mt-40">
+      <div className="w-full sm:w-1/2 mx-auto rounded-md bg-slate-600 md:mt-40">
         <div className="w-full flex justify-center items-center text-center">
           <h1 className="font-bold pt-7 text-2xl md:text-4xl text-white ">
             Todo App
@@ -85,7 +91,7 @@ function App() {
 
           <TextField
             id="outlined-basic"
-            label="Add Todo"
+            placeholder="Add Todo"
             variant="outlined"
             className=" w-full bg-slate-300"
             type="text"
