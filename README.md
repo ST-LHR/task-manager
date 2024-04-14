@@ -21,6 +21,7 @@ Clone the repository: https://github.com/ST-LHR/task-manager.git
 3 Install dependencies:
 4 npm install
 5 Create a Firebase project and configure Firestore.
+6 node v18.17.0
 
 Start the development server:
 

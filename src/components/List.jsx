@@ -2,6 +2,8 @@ import React from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
+
+//this component is used in App.js and receives the props.
 const List = ({ task, updateTaskHandler, deleteTaskHandler }) => {
   return (
     <div>

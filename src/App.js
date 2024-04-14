@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import List from "./components/List";
-import { db } from "./firebase";
+import { db } from "./utils/firebase";
 
 import {
   collection,
@@ -19,6 +19,8 @@ function App() {
   const [task, setTask] = useState("");
   const [newtask, setNewtask] = useState([]);
 
+  // this function will add tasks to configured firebase database
+
   const createTaskHandler = async (e) => {
     e.preventDefault();
     if (task === "") {
@@ -33,6 +35,8 @@ function App() {
     alert("Task added successfully");
   };
 
+  // this function will fetch tasks from firebase
+
   useEffect(() => {
     const q = query(collection(db, "todos"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -45,19 +49,24 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  // this function will update tasks in firebase
+
   const updateTaskHandler = async (task) => {
     // console.log("task is",task.id);
     await updateDoc(doc(db, "todos", task.id), {
       completed: !task.completed,
     });
   };
+
+  // this function will delete tasks from firebase
+
   const deleteTaskHandler = async (task) => {
     await deleteDoc(doc(db, "todos", task.id));
   };
 
   return (
-    <div className="bg-slate-800 w-full h-screen mx-auto">
-      <div className="w-full sm:w-1/2 mx-auto rounded-md bg-slate-600">
+    <div className="bg-slate-800 w-full h-screen mx-auto fixed">
+      <div className="w-full sm:w-1/2 mx-auto rounded-md bg-slate-600 mt-40">
         <div className="w-full flex justify-center items-center text-center">
           <h1 className="font-bold pt-7 text-2xl md:text-4xl text-white ">
             Todo App
